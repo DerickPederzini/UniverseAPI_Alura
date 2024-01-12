@@ -30,5 +30,8 @@ namespace API.Models
 
         public virtual ICollection<Session> Session {get; set; }
 
+        public virtual ICollection<Telescope> Telescope { get; set; }
+
+
     }
 }

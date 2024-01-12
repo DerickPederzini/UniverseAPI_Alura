@@ -5,5 +5,7 @@ namespace API.Data.DTOs
     public class CreateSessionDTO
     {
         public int CelestialId { get; set; }
+
+        public int AddressId { get; set; }
     }
 }

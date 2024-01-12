@@ -10,4 +10,6 @@ public class ReadTelescopeDTO
 
     public string Name { get; set; }
 
+    public ICollection<ReadUniverseDTO> Celestial { get; set; }
+
 }

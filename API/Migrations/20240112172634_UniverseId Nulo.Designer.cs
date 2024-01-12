@@ -3,6 +3,7 @@ using System;
 using API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(UniverseContext))]
-    partial class UniverseContextModelSnapshot : ModelSnapshot
+    [Migration("20240112172634_UniverseId Nulo")]
+    partial class UniverseIdNulo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -75,15 +78,16 @@ namespace API.Migrations
 
             modelBuilder.Entity("API.Models.Session", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
                     b.Property<int>("CelestialId")
                         .HasColumnType("int");
 
-                    b.Property<int>("AddressId")
-                        .HasColumnType("int");
+                    b.HasKey("Id");
 
-                    b.HasKey("CelestialId", "AddressId");
-
-                    b.HasIndex("AddressId");
+                    b.HasIndex("CelestialId");
 
                     b.ToTable("Sessions");
                 });
@@ -119,7 +123,7 @@ namespace API.Migrations
                     b.HasOne("API.Models.Address", "Address")
                         .WithOne("Celestial")
                         .HasForeignKey("API.Models.Celestial", "AddressId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Address");
@@ -127,19 +131,11 @@ namespace API.Migrations
 
             modelBuilder.Entity("API.Models.Session", b =>
                 {
-                    b.HasOne("API.Models.Address", "Addresses")
-                        .WithMany("Session")
-                        .HasForeignKey("AddressId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("API.Models.Celestial", "Celestial")
                         .WithMany("Session")
                         .HasForeignKey("CelestialId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Addresses");
 
                     b.Navigation("Celestial");
                 });
@@ -149,7 +145,7 @@ namespace API.Migrations
                     b.HasOne("API.Models.Address", "address")
                         .WithOne("Telescope")
                         .HasForeignKey("API.Models.Telescope", "AddressId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("API.Models.Celestial", "Celestial")
@@ -165,8 +161,6 @@ namespace API.Migrations
                 {
                     b.Navigation("Celestial")
                         .IsRequired();
-
-                    b.Navigation("Session");
 
                     b.Navigation("Telescope")
                         .IsRequired();

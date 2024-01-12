@@ -4,6 +4,7 @@ using API.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 namespace API.Controllers;
 
 [ApiController]
@@ -45,10 +46,15 @@ public class UniverseController : ControllerBase
 
 
     [HttpGet]
-    public IEnumerable<ReadUniverseDTO> RecoverFilms([FromQuery] int skip = 0, [FromQuery] int take = 5)//fromQuery diz que o usuario irá mandar as informaçoes de skip e take 
+    public IEnumerable<ReadUniverseDTO> RecoverFilms([FromQuery] int skip = 0, [FromQuery] int take = 5, [FromQuery] string? celestialName = null)//fromQuery diz que o usuario irá mandar as informaçoes de skip e take 
         //atraves de uma requisição
     {
-        return _mapper.Map<List<ReadUniverseDTO>>(_context.CelestialBodies.Skip(skip).Take(take).ToList());//permite o usuario dizer quantos elementos ele irá pular e quantos irá pegar na hora de fazer requisições
+        if(celestialName == null)
+        {
+            return _mapper.Map<List<ReadUniverseDTO>>(_context.CelestialBodies.Skip(skip).Take(take).ToList());//permite o usuario dizer quantos elementos ele irá pular e quantos irá pegar na hora de fazer requisições
+        }
+        return _mapper.Map<List<ReadUniverseDTO>>
+            (_context.CelestialBodies.Skip(skip).Take(take).Where(celestial => celestial.Session.Any(session => session.Celestial.Name == celestialName)).ToList());
     }
 
     [HttpGet("{id}")]//realiza um bind, caso seja passado um id no get, ele vai realizar esse metodo, caso contrario, realizará o acima

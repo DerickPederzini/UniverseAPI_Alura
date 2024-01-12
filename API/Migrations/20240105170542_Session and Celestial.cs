@@ -34,7 +34,7 @@ namespace API.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Sessions_CelestialId",
                 table: "Sessions",
-                column: "CelestialId1");
+                column: "CelestialId");
         }
 
         /// <inheritdoc />

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using API.Models;
 using API.Data.DTOs;
 using API.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers;
 
@@ -30,9 +31,15 @@ namespace API.Controllers;
         }
 
         [HttpGet]
-        public IEnumerable<ReadTelescopeDTO> RecoverTelescope()
+        public IEnumerable<ReadTelescopeDTO> RecoverTelescope([FromQuery] int? addressId = null)
         {
-            return _mapper.Map<List<ReadTelescopeDTO>>(_context.Telescopes.ToList());
+            if(addressId == null)
+            {
+                return _mapper.Map<List<ReadTelescopeDTO>>(_context.Telescopes.ToList());
+
+            }
+        return _mapper.Map<List<ReadTelescopeDTO>>
+            (_context.Telescopes.FromSqlRaw($"SELECT Id, Name, AddressId, CelestialId FROM telescopes WHERE telescopes.AddressId = {addressId}").ToList());
         }
 
         [HttpGet("{id}")]

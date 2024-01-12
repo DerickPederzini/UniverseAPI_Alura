@@ -11,16 +11,16 @@ namespace API.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_Sessions_CelestialBodies_CelestialId1",
+                name: "FK_Sessions_CelestialBodies_CelestialId",
                 table: "Sessions");
 
             migrationBuilder.RenameColumn(
-                name: "CelestialId1",
+                name: "CelestialId",
                 table: "Sessions",
                 newName: "CelestialId");
 
             migrationBuilder.RenameIndex(
-                name: "IX_Sessions_CelestialId1",
+                name: "IX_Sessions_CelestialId",
                 table: "Sessions",
                 newName: "IX_Sessions_CelestialId");
 
@@ -43,17 +43,17 @@ namespace API.Migrations
             migrationBuilder.RenameColumn(
                 name: "CelestialId",
                 table: "Sessions",
-                newName: "CelestialId1");
+                newName: "CelestialId");
 
             migrationBuilder.RenameIndex(
                 name: "IX_Sessions_CelestialId",
                 table: "Sessions",
-                newName: "IX_Sessions_CelestialId1");
+                newName: "IX_Sessions_CelestialId");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Sessions_CelestialBodies_CelestialId1",
+                name: "FK_Sessions_CelestialBodies_CelestialId",
                 table: "Sessions",
-                column: "CelestialId1",
+                column: "CelestialId",
                 principalTable: "CelestialBodies",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Cascade);

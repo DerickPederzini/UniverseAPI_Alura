@@ -9,4 +9,6 @@ public class CreateTelescopeDTO
 
     public int AddressId { get; set; }
 
+    public int CelestiaId { get; set; }
+
 }

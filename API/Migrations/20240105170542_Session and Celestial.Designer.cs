@@ -127,7 +127,7 @@ namespace API.Migrations
                 {
                     b.HasOne("API.Models.Celestial", "Celestial")
                         .WithMany("Sessions")
-                        .HasForeignKey("CelestialId1")
+                        .HasForeignKey("CelestialId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

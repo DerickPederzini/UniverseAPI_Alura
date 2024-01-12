@@ -3,6 +3,7 @@ using System;
 using API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(UniverseContext))]
-    partial class UniverseContextModelSnapshot : ModelSnapshot
+    [Migration("20240112174937_Universes and sessions")]
+    partial class Universesandsessions
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -119,7 +122,7 @@ namespace API.Migrations
                     b.HasOne("API.Models.Address", "Address")
                         .WithOne("Celestial")
                         .HasForeignKey("API.Models.Celestial", "AddressId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Address");
@@ -149,7 +152,7 @@ namespace API.Migrations
                     b.HasOne("API.Models.Address", "address")
                         .WithOne("Telescope")
                         .HasForeignKey("API.Models.Telescope", "AddressId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("API.Models.Celestial", "Celestial")

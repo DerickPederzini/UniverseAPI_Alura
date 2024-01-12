@@ -11,9 +11,9 @@ public class Address
     [Required]
     public string MyProperty { get; set; }
     public int Number {  get; set; }
-
     public virtual Celestial Celestial { get; set; }
     public virtual Telescope Telescope { get; set; }
+    public virtual ICollection<Session> Session { get; set; }
 
 
 

@@ -25,7 +25,7 @@ public class SessionController : ControllerBase
         Session session = _mapper.Map<Session>(sessionDTO);
         _context.Sessions.Add(session);
         _context.SaveChanges();
-        return CreatedAtAction(nameof(RecoverSessionById), new { id = session.Id }, session);
+        return CreatedAtAction(nameof(RecoverSessionById), new { celesialId = session.CelestialId, addressId = session.AddressId}, session);
     }
 
     [HttpGet]
@@ -34,10 +34,10 @@ public class SessionController : ControllerBase
         return _mapper.Map<List<ReadSessionDTO>>(_context.Sessions.ToList());
     }
 
-    [HttpGet("{id}")]
-    public IActionResult RecoverSessionById(int id)
+    [HttpGet("{celestialId}/{addressId}")]
+    public IActionResult RecoverSessionById(int celestialId, int addressId)
     {
-        Session session = _context.Sessions.FirstOrDefault(session => session.Id == id);
+        Session session = _context.Sessions.FirstOrDefault(session => session.CelestialId == celestialId && session.AddressId == addressId);
         if (session != null)
         {
             ReadSessionDTO sessionDTO = _mapper.Map<ReadSessionDTO>(session);

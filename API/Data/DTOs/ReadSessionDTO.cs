@@ -2,6 +2,7 @@
 {
     public class ReadSessionDTO
     {
-        public int Id { get; set; }
+        public int CelestialId { get; set; }
+        public int AddressId { get; set; }
     }
 }

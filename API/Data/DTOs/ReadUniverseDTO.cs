@@ -17,5 +17,9 @@ public class ReadUniverseDTO
 
     public DateTime consultTime {  get; set; } = DateTime.Now;
 
-    
+    public ICollection<ReadTelescopeDTO> Telescope { get; set; }
+
+    public ICollection<ReadSessionDTO> Session { get; set; }
+
+
 }
